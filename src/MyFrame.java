@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+
 public class MyFrame extends JFrame implements ActionListener {
 
     /* Menus declarados fora do construtor para serem acessados no método
@@ -17,6 +18,9 @@ public class MyFrame extends JFrame implements ActionListener {
 
     JPanel painelInicial, painelCadastro, painelLista;
 
+    //Constante de GridBagLayout reutilizável para manipular componentes:
+
+    GridBagConstraints c = new GridBagConstraints();
 
     MyFrame(){
 
@@ -50,117 +54,27 @@ public class MyFrame extends JFrame implements ActionListener {
 
         //painelInicial: Painel descrevendo a aplicação, oferecendo instruções de como utilizar a aplicação.
 
-        painelInicial = new JPanel();
-        painelInicial.setPreferredSize(new Dimension(500,500));
-        painelInicial.setVisible(true);
+        TelaInicial telaInicial = new TelaInicial(); //Inicia construtor
+        painelInicial = telaInicial.getPainelInicial(); //Retorna painel da classe.
+
         contentPane.add(painelInicial);
-
-        JTextArea descricao = new JTextArea();
-
 
         /* painelCadastro: Será o painel que receberá a entrada de dados do usuário.
         Ele terá o layout GridBag, visto que nesse painel requer maior liberdade de tamanho e
         posicionamento independente para os componentes.*/
 
-        painelCadastro = new JPanel(new GridBagLayout());
-        painelCadastro.setPreferredSize(new Dimension(250, 500));
-        painelCadastro.setOpaque(true);
-        painelCadastro.setVisible(false);
+        TelaCadastro telaCadastro = new TelaCadastro();
+        painelCadastro = telaCadastro.getPainelCadastro();
+
         contentPane.add(painelCadastro);
-
-        //Declarando tipos dos componentes:
-
-        JLabel labelNome, labelTamanho, labelQuantidade, labelPreco, labelDescricao;
-        JTextField inputNome, inputQuantidade, inputPreco, inputDescricao;
-        ButtonGroup tamanhosProduto;
-        JRadioButton inputTamanhoP, inputTamanhoM, inputTamanhoG;
-
-
-        //Inicializando componentes:
-
-        labelNome = new JLabel("Nome do Produto: ");
-        labelTamanho = new JLabel("Tamanho: ");
-        labelPreco = new JLabel("Preço: ");
-        labelQuantidade = new JLabel("Quantidade: ");
-        labelDescricao = new JLabel("Descrição do produto (opcional): ");
-
-        inputNome = new JTextField();
-        inputPreco = new JTextField();
-        inputQuantidade = new JTextField();
-        inputDescricao = new JTextField();
-
-        tamanhosProduto = new ButtonGroup();
-        inputTamanhoP = new JRadioButton("P");
-        inputTamanhoM = new JRadioButton("M");
-        inputTamanhoG = new JRadioButton("G");
-
-
-        tamanhosProduto.add(inputTamanhoP);
-        tamanhosProduto.add(inputTamanhoM);
-        tamanhosProduto.add(inputTamanhoG);
-
-
-        //POSICIONANDO E DIMENSIONANDO ELEMENTOS NO PAINEL DE ENTRADA:
-
-        GridBagConstraints c = new GridBagConstraints(); //Constante para componentes
-
-
-        painelCadastro.add(labelNome, c);
-        painelCadastro.add(inputNome, c);
-        painelCadastro.add(labelTamanho, c);
-        painelCadastro.add(inputTamanhoP, c);
-        painelCadastro.add(inputTamanhoM, c);
-        painelCadastro.add(inputTamanhoG, c);
-        painelCadastro.add(labelQuantidade, c);
-        painelCadastro.add(inputQuantidade, c);
-        painelCadastro.add(labelQuantidade, c);
-        painelCadastro.add(inputQuantidade, c);
-
-
-
-
-        /*
-        c.gridx = 0;
-        c.gridy = 1;
-        c.fill = GridBagConstraints.NONE;
-        painelCadastro.add(labelTamanho, c);
-        c.gridx = 1;
-        painelCadastro.add(inputTamanhoP, c);
-        c.gridx = 2;
-        painelCadastro.add(inputTamanhoM, c);
-        c.gridx = 3;
-        painelCadastro.add(inputTamanhoG, c);
-
-
-        c.gridx = 0;
-        c.gridy = 2;
-        painelCadastro.add(labelPreco, c);
-        c.gridx = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        painelCadastro.add(inputPreco, c);
-
-        c.gridx = 0;
-        c.gridy = 3;
-        c.fill = GridBagConstraints.NONE;
-        painelCadastro.add(labelQuantidade, c);
-        c.gridx = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        painelCadastro.add(inputQuantidade, c);
-
-        */
 
         /* painelLista: Será o painel contendo a saída para os itens da
         lista de produtos armazenados. */
 
-        painelLista = new JPanel(); //Flow Layout por padrão
-        painelLista.setPreferredSize(new Dimension(500,500));
-        painelLista.setOpaque(true);
-        painelLista.setVisible(false);
+        TelaLista telaLista = new TelaLista();
+        painelLista = telaLista.getPainelLista();
 
-        JLabel outputLabel = new JLabel("Ouput Panel (Painel de saída).");
-        painelLista.add(outputLabel);
-
-        contentPane.add(painelLista, BorderLayout.LINE_END); //Posiciona o painel de saída na direita.
+        contentPane.add(painelLista);
 
         //JFrame:
 
@@ -168,6 +82,23 @@ public class MyFrame extends JFrame implements ActionListener {
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         pack();
+
+
+        // Obtendo as dimensões da tela para exibir o Frame no centro da tela do computador:
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        // Calculando as coordenadas x e y para centralizar a janela:
+
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        int windowWidth = this.getWidth();
+        int windowHeight = this.getHeight();
+        int x = (screenWidth - windowWidth) / 2;
+        int y = (screenHeight - windowHeight) / 2;
+
+        // Definindo as coordenadas centralizadas para a janela
+        setLocation(x, y);
 
     }
 
