@@ -1,3 +1,4 @@
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -10,14 +11,18 @@ public class ConectaDB {
        para encontrá-lo.
     */
 
-    public ConectaDB(String url, String user, String password) {
+    private static Connection conn = null;
+
+    public ConectaDB(){};
+
+    public static void setConnection(String url, String user, String password) {
 
         try {
 
             Class.forName("com.mysql.cj.jdbc.Driver"); /* Carrega classe dinamicamente, buscando arquivo JAR
             nos diretórios de classes no aplicativo que encontra driver */
 
-            System.out.println("Driver encontrado com sucesso");
+            System.out.println("Driver encontrado com sucesso.");
         } catch (ClassNotFoundException e) {
 
             System.err.println(STR."Erro ao encontrar o driver. \{e.getMessage()}");
@@ -25,13 +30,20 @@ public class ConectaDB {
 
         try {
 
-            DriverManager.getConnection(url, user, password);
-            System.out.println("Banco de dados conectado com sucesso");
+            conn = DriverManager.getConnection(url, user, password);
+            System.out.println("Conexão armazenada.");
 
         } catch (SQLException e) {
 
             System.err.println(STR."Erro ao conectar ao banco de dados. \{e.getMessage()}");
         }
+
+    }
+
+    public static Connection getConnection() {
+
+        System.out.println("Banco de dados conectado com sucesso.");
+        return conn;
 
     }
 }

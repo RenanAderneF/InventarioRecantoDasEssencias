@@ -83,22 +83,7 @@ public class MyFrame extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         pack();
 
-
-        // Obtendo as dimensões da tela para exibir o Frame no centro da tela do computador:
-
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-        // Calculando as coordenadas x e y para centralizar a janela:
-
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
-        int windowWidth = this.getWidth();
-        int windowHeight = this.getHeight();
-        int x = (screenWidth - windowWidth) / 2;
-        int y = (screenHeight - windowHeight) / 2;
-
-        // Definindo as coordenadas centralizadas para a janela
-        setLocation(x, y);
+        setLocationRelativeTo(null); //Faz JFrame surgir no centro da tela.
 
     }
 
