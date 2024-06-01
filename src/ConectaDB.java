@@ -6,16 +6,9 @@ import static java.lang.StringTemplate.STR;
 
 public class ConectaDB {
 
-    /* Antes de tudo, é necessário instalar o Driver adequado do JDBC,
-       inserir seu arquivo JAR nas dependências do projeto e utilizar "Class.forName"
-       para encontrá-lo.
-    */
-
     private static Connection conn = null;
 
-    public ConectaDB(){};
-
-    public static void setConnection(String url, String user, String password) {
+    public static void setConnection() {
 
         try {
 
@@ -23,6 +16,7 @@ public class ConectaDB {
             nos diretórios de classes no aplicativo que encontra driver */
 
             System.out.println("Driver encontrado com sucesso.");
+
         } catch (ClassNotFoundException e) {
 
             System.err.println(STR."Erro ao encontrar o driver. \{e.getMessage()}");
@@ -30,8 +24,21 @@ public class ConectaDB {
 
         try {
 
-            conn = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexão armazenada.");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/recantodb", "root", "");
+            System.out.println("Conexão realizada com sucesso.");
+
+            //Finaliza a conexão caso programa seja encerrado.
+
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                if (conn != null) {
+                    try {
+                        conn.close();
+                        System.out.println("Conexão fechada com sucesso.");
+                    } catch (SQLException e) {
+                        System.err.println(STR."Erro ao fechar a conexão: \{e.getMessage()}");
+                    }
+                }
+            }));
 
         } catch (SQLException e) {
 
@@ -42,8 +49,21 @@ public class ConectaDB {
 
     public static Connection getConnection() {
 
-        System.out.println("Banco de dados conectado com sucesso.");
-        return conn;
+        try {
 
+            if(conn == null || conn.isClosed()) {
+
+                setConnection(); //Se conexão for nula ou fechada, realiza uma nova conexão.
+            }
+
+        }
+
+        catch (SQLException e) {
+
+            System.err.println(STR."Conexão não foi verificada corretamente. \{e.getMessage()}");
+        }
+
+        return conn; //Retorna conexão já existente ou iniciada caso não existisse.
     }
+
 }

@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 
 
@@ -17,10 +16,7 @@ public class MyFrame extends JFrame implements ActionListener {
    manipulados pelos métodos da classe. */
 
     JPanel painelInicial, painelCadastro, painelLista;
-
-    //Constante de GridBagLayout reutilizável para manipular componentes:
-
-    GridBagConstraints c = new GridBagConstraints();
+    TelaLista telaLista;
 
     MyFrame(){
 
@@ -71,7 +67,7 @@ public class MyFrame extends JFrame implements ActionListener {
         /* painelLista: Será o painel contendo a saída para os itens da
         lista de produtos armazenados. */
 
-        TelaLista telaLista = new TelaLista();
+        telaLista = new TelaLista();
         painelLista = telaLista.getPainelLista();
 
         contentPane.add(painelLista);
@@ -113,6 +109,11 @@ public class MyFrame extends JFrame implements ActionListener {
         painelCadastro.setVisible(false);
     }
 
+    public JPanel getInitPLista(){
+
+        return painelLista;
+    }
+
 
     @Override //Sobrescreve o método ActionPerformed da interface ActionListener
 
@@ -120,15 +121,14 @@ public class MyFrame extends JFrame implements ActionListener {
 
         if(e.getSource() == itemCadastrar) {
 
-            /* Chama método de exibir o painel de Cadastro e
-            esconder a tela principal */
-
             exibeTelaCadastro();
         }
 
         else if(e.getSource() == itemListar) {
 
             exibeTelaLista();
+            telaLista.listaProduto();
+
         }
 
         else if(e.getSource() == itemInicio) {

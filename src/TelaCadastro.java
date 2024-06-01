@@ -12,7 +12,7 @@ independente para os componentes.*/
 
 public class TelaCadastro implements ActionListener {
 
-    JTextField inputNome, inputTamanho, inputQuantidade, inputPreco, inputDescricao;
+    JTextField inputNome, inputTamanho, inputQuantidade, inputPreco, inputcodigoBarras;
     JButton btnEnviar;
     GridBagConstraints c = new GridBagConstraints();
     JPanel painelCadastro;
@@ -20,13 +20,13 @@ public class TelaCadastro implements ActionListener {
     TelaCadastro() {
 
         painelCadastro = new JPanel(new GridBagLayout());
-        painelCadastro.setPreferredSize(new Dimension(500, 500));
+        painelCadastro.setPreferredSize(new Dimension(300, 500));
         painelCadastro.setOpaque(true);
         painelCadastro.setVisible(false);
 
         //Declarando tipos dos componentes:
 
-        JLabel labelNome, labelTamanho, labelQuantidade, labelPreco, labelDescricao;
+        JLabel labelNome, labelTamanho, labelQuantidade, labelPreco, labelcodigoBarras;
         ButtonGroup tamanhosProduto;
         JRadioButton inputTamanhoP, inputTamanhoM, inputTamanhoG;
 
@@ -36,13 +36,13 @@ public class TelaCadastro implements ActionListener {
         labelTamanho = new JLabel("Tamanho: ");
         labelPreco = new JLabel("Preço: ");
         labelQuantidade = new JLabel("Quantidade: ");
-        labelDescricao = new JLabel("Descrição do Produto: ");
+        labelcodigoBarras = new JLabel("Código de barras: ");
 
         inputNome = new JTextField();
         inputTamanho = new JTextField();
         inputPreco = new JTextField();
         inputQuantidade = new JTextField();
-        inputDescricao = new JTextField();
+        inputcodigoBarras = new JTextField();
 
 
 
@@ -60,11 +60,11 @@ public class TelaCadastro implements ActionListener {
         c.gridy = 0;
         painelCadastro.add(labelNome, c);
 
+        c.insets = new Insets(0,-70,0,0);
         c.gridx = 1;
         c.gridy = 0;
-        c.gridwidth = 3;
         painelCadastro.add(inputNome, c);
-        c.gridwidth = 1;
+        c.insets = new Insets(0,0,0,0);
 
         ///
 
@@ -72,9 +72,11 @@ public class TelaCadastro implements ActionListener {
         c.gridy = 1;
         painelCadastro.add(labelTamanho, c);
 
+        c.insets = new Insets(0,-70,0,0);
         c.gridx = 1;
         c.gridy = 1;
         painelCadastro.add(inputTamanho, c);
+        c.insets = new Insets(0,0,0,0);
 
         ///
 
@@ -82,11 +84,11 @@ public class TelaCadastro implements ActionListener {
         c.gridy = 2;
         painelCadastro.add(labelPreco, c);
 
+        c.insets = new Insets(0,-70,0,0);
         c.gridx = 1;
         c.gridy = 2;
-        c.gridwidth = 3;
         painelCadastro.add(inputPreco, c);
-        c.gridwidth = 1;
+        c.insets = new Insets(0,0,0,0);
 
         ///
 
@@ -94,22 +96,24 @@ public class TelaCadastro implements ActionListener {
         c.gridy = 3;
         painelCadastro.add(labelQuantidade, c);
 
+        c.insets = new Insets(0,-70,0,0);
         c.gridx = 1;
         c.gridy = 3;
-        c.gridwidth = 3;
         painelCadastro.add(inputQuantidade, c);
-        c.gridwidth = 1;
+        c.insets = new Insets(0,0,0,0);
 
         ///
 
         c.gridx = 0;
         c.gridy = 4;
-        painelCadastro.add(labelDescricao, c);
+        painelCadastro.add(labelcodigoBarras, c);
 
+        c.insets = new Insets(0,-70,0,0);
         c.gridx = 1;
         c.gridy = 4;
         c.gridwidth = 3;
-        painelCadastro.add(inputDescricao, c);
+        painelCadastro.add(inputcodigoBarras, c);
+        c.insets = new Insets(0,0,0,0);
 
 
         //Label e Input Nome:
@@ -133,10 +137,11 @@ public class TelaCadastro implements ActionListener {
         String tamanho = inputTamanho.getText();
         float preco = parseFloat(inputPreco.getText());
         int quantidade = parseInt(inputQuantidade.getText());
-        String descricao = inputDescricao.getText();
+        String codigoBarras = inputcodigoBarras.getText();
 
-        Produto produto = new Produto(nome, tamanho, preco, quantidade, descricao);
-        System.out.println(produto.getNome());
+        //TODO Realizar verificação dos campos antes da criação do produto e sua query insert.
+
+        Produto produto = new Produto(nome, tamanho, preco, quantidade, codigoBarras);
 
         OperacoesDB.registraProduto(produto); //Realiza o INSERT dos campos.
 

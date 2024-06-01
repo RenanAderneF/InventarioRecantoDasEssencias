@@ -4,8 +4,7 @@ public class Main {
 
         //Inicia a conexão com o banco de dados
 
-        ConectaDB.setConnection("jdbc:mysql://localhost:3306/recantodb", "root", "");
-        ConectaDB.getConnection();
+        ConectaDB.setConnection();
 
         //Inicia a interface gráfica
 
