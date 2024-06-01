@@ -10,25 +10,22 @@ import static java.lang.Integer.parseInt;
 do usuário. Ele terá o layout GridBag, visto que nesse painel requer maior liberdade de tamanho e posicionamento
 independente para os componentes.*/
 
-public class TelaCadastro implements ActionListener {
+public class TelaCadastro extends JPanel implements ActionListener {
 
     JTextField inputNome, inputTamanho, inputQuantidade, inputPreco, inputcodigoBarras;
     JButton btnEnviar;
     GridBagConstraints c = new GridBagConstraints();
-    JPanel painelCadastro;
 
     TelaCadastro() {
 
-        painelCadastro = new JPanel(new GridBagLayout());
-        painelCadastro.setPreferredSize(new Dimension(300, 500));
-        painelCadastro.setOpaque(true);
-        painelCadastro.setVisible(false);
+        setLayout(new GridBagLayout());
+        setPreferredSize(new Dimension(300, 500));
+        setOpaque(true);
+        setVisible(false);
 
         //Declarando tipos dos componentes:
 
         JLabel labelNome, labelTamanho, labelQuantidade, labelPreco, labelcodigoBarras;
-        ButtonGroup tamanhosProduto;
-        JRadioButton inputTamanhoP, inputTamanhoM, inputTamanhoG;
 
         //Inicializando componentes:
 
@@ -44,8 +41,6 @@ public class TelaCadastro implements ActionListener {
         inputQuantidade = new JTextField();
         inputcodigoBarras = new JTextField();
 
-
-
         btnEnviar = new JButton("Enviar");
         btnEnviar.addActionListener(this);
 
@@ -58,61 +53,61 @@ public class TelaCadastro implements ActionListener {
 
         c.gridx = 0;
         c.gridy = 0;
-        painelCadastro.add(labelNome, c);
+        this.add(labelNome, c);
 
         c.insets = new Insets(0,-70,0,0);
         c.gridx = 1;
         c.gridy = 0;
-        painelCadastro.add(inputNome, c);
+        this.add(inputNome, c);
         c.insets = new Insets(0,0,0,0);
 
         ///
 
         c.gridx = 0;
         c.gridy = 1;
-        painelCadastro.add(labelTamanho, c);
+        this.add(labelTamanho, c);
 
         c.insets = new Insets(0,-70,0,0);
         c.gridx = 1;
         c.gridy = 1;
-        painelCadastro.add(inputTamanho, c);
+        this.add(inputTamanho, c);
         c.insets = new Insets(0,0,0,0);
 
         ///
 
         c.gridx = 0;
         c.gridy = 2;
-        painelCadastro.add(labelPreco, c);
+        this.add(labelPreco, c);
 
         c.insets = new Insets(0,-70,0,0);
         c.gridx = 1;
         c.gridy = 2;
-        painelCadastro.add(inputPreco, c);
+        this.add(inputPreco, c);
         c.insets = new Insets(0,0,0,0);
 
         ///
 
         c.gridx = 0;
         c.gridy = 3;
-        painelCadastro.add(labelQuantidade, c);
+        this.add(labelQuantidade, c);
 
         c.insets = new Insets(0,-70,0,0);
         c.gridx = 1;
         c.gridy = 3;
-        painelCadastro.add(inputQuantidade, c);
+        this.add(inputQuantidade, c);
         c.insets = new Insets(0,0,0,0);
 
         ///
 
         c.gridx = 0;
         c.gridy = 4;
-        painelCadastro.add(labelcodigoBarras, c);
+        this.add(labelcodigoBarras, c);
 
         c.insets = new Insets(0,-70,0,0);
         c.gridx = 1;
         c.gridy = 4;
         c.gridwidth = 3;
-        painelCadastro.add(inputcodigoBarras, c);
+        this.add(inputcodigoBarras, c);
         c.insets = new Insets(0,0,0,0);
 
 
@@ -121,13 +116,7 @@ public class TelaCadastro implements ActionListener {
         c.gridwidth = 3;
         c.gridy = 5;
         c.gridx = 0;
-        painelCadastro.add(btnEnviar, c);
-
-    }
-
-    public JPanel getPainelCadastro(){
-
-        return painelCadastro;
+        this.add(btnEnviar, c);
 
     }
 

@@ -1,4 +1,8 @@
+import javax.swing.*;
+
 public class Main {
+
+    private static MyFrame MyFrame;
 
     public static void main(String[] args){
 
@@ -8,6 +12,11 @@ public class Main {
 
         //Inicia a interface gráfica
 
-        new MyFrame();
+        MyFrame = new MyFrame();
+    }
+
+    public static MyFrame getMyFrame(){ //Retorna MyFrame inicializado em Main.
+
+        return MyFrame;
     }
 }

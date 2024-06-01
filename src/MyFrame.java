@@ -15,8 +15,8 @@ public class MyFrame extends JFrame implements ActionListener {
     /* Painéis declarados fora do construtor para serem
    manipulados pelos métodos da classe. */
 
-    JPanel painelInicial, painelCadastro, painelLista;
-    TelaLista telaLista;
+    JPanel painelInicial, painelCadastro;
+    TelaLista painelLista;
 
     MyFrame(){
 
@@ -59,17 +59,13 @@ public class MyFrame extends JFrame implements ActionListener {
         Ele terá o layout GridBag, visto que nesse painel requer maior liberdade de tamanho e
         posicionamento independente para os componentes.*/
 
-        TelaCadastro telaCadastro = new TelaCadastro();
-        painelCadastro = telaCadastro.getPainelCadastro();
-
+        painelCadastro = new TelaCadastro();
         contentPane.add(painelCadastro);
 
         /* painelLista: Será o painel contendo a saída para os itens da
         lista de produtos armazenados. */
 
-        telaLista = new TelaLista();
-        painelLista = telaLista.getPainelLista();
-
+        painelLista = new TelaLista();
         contentPane.add(painelLista);
 
         //JFrame:
@@ -101,7 +97,6 @@ public class MyFrame extends JFrame implements ActionListener {
 
     }
 
-
     public void exibeTelaLista() {
 
         painelLista.setVisible(true);
@@ -109,7 +104,7 @@ public class MyFrame extends JFrame implements ActionListener {
         painelCadastro.setVisible(false);
     }
 
-    public JPanel getInitPLista(){
+    public TelaLista getPainelLista(){ //Retorna a instância de TelaLista iniciada em MyFrame, e atribuída a "painelLista".
 
         return painelLista;
     }
@@ -127,7 +122,7 @@ public class MyFrame extends JFrame implements ActionListener {
         else if(e.getSource() == itemListar) {
 
             exibeTelaLista();
-            telaLista.listaProduto();
+            OperacoesDB.listaProdutos();
 
         }
 
