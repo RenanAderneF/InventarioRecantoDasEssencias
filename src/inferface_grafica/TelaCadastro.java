@@ -1,14 +1,20 @@
+package inferface_grafica;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
+import main.Produto;
+import db.OperacoesDB;
 
-/* TelaCadastro: Classe responsável por configurar e retronar o painel de cadastro, que receberá a entrada de dados
-do usuário. Ele terá o layout GridBag, visto que nesse painel requer maior liberdade de tamanho e posicionamento
-independente para os componentes.*/
+
+/**
+ * Classe responsável por inicializar o painel de cadastro, que receberá a entrada de dados
+ * do usuário. Seu principal método "cadastraProduto" recebe os valores inseridos nos campos de texto, e os passa como
+ * parâmetros durante a inicialização do objeto "main.Produto" correspondente.
+ */
 
 public class TelaCadastro extends JPanel implements ActionListener {
 
@@ -120,7 +126,7 @@ public class TelaCadastro extends JPanel implements ActionListener {
 
     }
 
-    public void cadastrarProduto(){
+    public void cadastraProduto(){
 
         String nome = inputNome.getText();
         String tamanho = inputTamanho.getText();
@@ -141,11 +147,10 @@ public class TelaCadastro extends JPanel implements ActionListener {
 
         if(e.getSource() == btnEnviar) {
 
-            cadastrarProduto();
+            cadastraProduto();
 
         }
 
     }
-
 
 }

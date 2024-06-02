@@ -1,8 +1,11 @@
-import javax.swing.*;
+package main;
+
+import db.ConectaDB;
+import inferface_grafica.MyFrame;
 
 public class Main {
 
-    private static MyFrame MyFrame;
+    private static inferface_grafica.MyFrame MyFrame;
 
     public static void main(String[] args){
 
@@ -15,7 +18,7 @@ public class Main {
         MyFrame = new MyFrame();
     }
 
-    public static MyFrame getMyFrame(){ //Retorna MyFrame inicializado em Main.
+    public static MyFrame getMyFrame(){ //Retorna inferface_grafica.MyFrame inicializado em main.Main.
 
         return MyFrame;
     }

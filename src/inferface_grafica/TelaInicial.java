@@ -1,8 +1,10 @@
+package inferface_grafica;
+
 import javax.swing.*;
 import java.awt.*;
 
-/* TelaInicial: Classe responsável por configurar e retornar o painel inicial, que oferece instruções de como utilizar a
-aplicação. Ele é instanciado em MyFrame, tendo seu método get chamado para acessar o JPanel em si. */
+/* inferface_grafica.TelaInicial: Classe responsável por configurar e retornar o painel inicial, que oferece instruções de como utilizar a
+aplicação. Ele é instanciado em inferface_grafica.MyFrame, tendo seu método get chamado para acessar o JPanel em si. */
 
 public class TelaInicial {
 

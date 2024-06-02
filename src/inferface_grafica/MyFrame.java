@@ -1,6 +1,13 @@
+package inferface_grafica;
 import javax.swing.*;
 import java.awt.event.*;
+import db.OperacoesDB;
 
+/**
+ * Classe responsável por inicializar o frame da interface gráfica, contendo a inicialização da barra de menu, painel de
+ * registro de produtos e painel de listagem de produtos do banco de dados. Além de métodos get para a inicialização
+ * desses painéis, ela conta com a implementação da interface "ActionListener" para interação com os menus.
+ */
 
 public class MyFrame extends JFrame implements ActionListener {
 
@@ -18,7 +25,7 @@ public class MyFrame extends JFrame implements ActionListener {
     JPanel painelInicial, painelCadastro;
     TelaLista painelLista;
 
-    MyFrame(){
+    public MyFrame(){
 
         // Content Pane: Painel com todo o conteúdo da aplicação.
 
@@ -55,15 +62,12 @@ public class MyFrame extends JFrame implements ActionListener {
 
         contentPane.add(painelInicial);
 
-        /* painelCadastro: Será o painel que receberá a entrada de dados do usuário.
-        Ele terá o layout GridBag, visto que nesse painel requer maior liberdade de tamanho e
-        posicionamento independente para os componentes.*/
+        // painelCadastro: Contém o formulário de cadastro de item.
 
         painelCadastro = new TelaCadastro();
         contentPane.add(painelCadastro);
 
-        /* painelLista: Será o painel contendo a saída para os itens da
-        lista de produtos armazenados. */
+        //painelLista: Contém a saída para os itens registrados no banco de dados.
 
         painelLista = new TelaLista();
         contentPane.add(painelLista);
@@ -82,11 +86,15 @@ public class MyFrame extends JFrame implements ActionListener {
 
     //MÉTODOS DE INSTÂNCIA DA CLASSE:
 
+    /*TODO: Criar método que limpe os campos da tabela (Provavelmente em db.OperacoesDB), e chamá-lo em 'ExibeTelaInicio()'
+    e 'exibeTelaCadastro()'. */
+
     public void exibeTelaInicio(){
 
         painelInicial.setVisible(true);
         painelCadastro.setVisible(false);
         painelLista.setVisible(false);
+        painelLista.limpaLista();
     }
 
     public void exibeTelaCadastro() {
@@ -94,7 +102,7 @@ public class MyFrame extends JFrame implements ActionListener {
         painelCadastro.setVisible(true);
         painelInicial.setVisible(false);
         painelLista.setVisible(false);
-
+        painelLista.limpaLista();
     }
 
     public void exibeTelaLista() {
@@ -104,13 +112,13 @@ public class MyFrame extends JFrame implements ActionListener {
         painelCadastro.setVisible(false);
     }
 
-    public TelaLista getPainelLista(){ //Retorna a instância de TelaLista iniciada em MyFrame, e atribuída a "painelLista".
+    public TelaLista getPainelLista(){ //Retorna a instância de inferface_grafica.TelaLista iniciada em inferface_grafica.MyFrame, e atribuída a "painelLista".
 
         return painelLista;
     }
 
 
-    @Override //Sobrescreve o método ActionPerformed da interface ActionListener
+    @Override //Sobrescreve o método ActionPerformed da interface ActionListener, definindo eventos dos menus.
 
     public void actionPerformed(ActionEvent e) {
 
@@ -133,6 +141,5 @@ public class MyFrame extends JFrame implements ActionListener {
         }
 
     }
-
 
 }
