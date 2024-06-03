@@ -1,9 +1,9 @@
 package inferface_grafica;
 
 import javax.swing.*;
-//import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import Table_model.Model;
 
 /**
  * Classe responsável por inicializar o painel de listagem de produtos no banco de dados. Possui métodos para retornar
@@ -15,7 +15,6 @@ public class TelaLista extends JPanel  {
     JTable tabelaProduto;
     DefaultTableModel modelo;
     JScrollPane scrollTabela;
-    //TableModelListener l;
 
     TelaLista() {
 
@@ -27,27 +26,12 @@ public class TelaLista extends JPanel  {
         JLabel outputLabel = new JLabel("Listagem de produtos: ");
         add(outputLabel);
 
-        //Criação da tabela:
+        //Criação do modelo personalizado e da tabela:
 
-        String[] colunas = {"ID", "Nome", "Código de Barras", "Tamanho", "Preço", "Quantidade"}; //Colunas na tabela
-
-        modelo = new DefaultTableModel(colunas, 0){ //Classe anônima para modificar método.
-
-            // O método "isCellEditable" é sobrescrito para retornar que apenas a coluna ID não possa ser editada.
-
-            @Override
-            public boolean isCellEditable(int row, int column){
-
-                int indexID = findColumn("ID");
-                return column != indexID;
-            }
-        };
-
-
+        modelo = new Model();
 
         tabelaProduto = new JTable(modelo);
         scrollTabela = new JScrollPane(tabelaProduto);
-
 
         add(scrollTabela);
 
@@ -58,7 +42,7 @@ public class TelaLista extends JPanel  {
 
     //MÉTODOS DE INSTÂNCIA:
 
-    public DefaultTableModel getModeloTbl() {
+    public DefaultTableModel getMdlPersonalizado() {
 
         return modelo;
 

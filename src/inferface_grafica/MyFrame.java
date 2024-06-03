@@ -22,7 +22,8 @@ public class MyFrame extends JFrame implements ActionListener {
     /* Painéis declarados fora do construtor para serem
    manipulados pelos métodos da classe. */
 
-    JPanel painelInicial, painelCadastro;
+    TelaInicial painelInicial;
+    TelaCadastro painelCadastro;
     TelaLista painelLista;
 
     public MyFrame(){
@@ -57,9 +58,7 @@ public class MyFrame extends JFrame implements ActionListener {
 
         //painelInicial: Painel descrevendo a aplicação, oferecendo instruções de como utilizar a aplicação.
 
-        TelaInicial telaInicial = new TelaInicial(); //Inicia construtor
-        painelInicial = telaInicial.getPainelInicial(); //Retorna painel da classe.
-
+        painelInicial = new TelaInicial(); //Inicia construtor
         contentPane.add(painelInicial);
 
         // painelCadastro: Contém o formulário de cadastro de item.
@@ -86,9 +85,6 @@ public class MyFrame extends JFrame implements ActionListener {
 
     //MÉTODOS DE INSTÂNCIA DA CLASSE:
 
-    /*TODO: Criar método que limpe os campos da tabela (Provavelmente em db.OperacoesDB), e chamá-lo em 'ExibeTelaInicio()'
-    e 'exibeTelaCadastro()'. */
-
     public void exibeTelaInicio(){
 
         painelInicial.setVisible(true);
@@ -112,7 +108,8 @@ public class MyFrame extends JFrame implements ActionListener {
         painelCadastro.setVisible(false);
     }
 
-    public TelaLista getPainelLista(){ //Retorna a instância de inferface_grafica.TelaLista iniciada em inferface_grafica.MyFrame, e atribuída a "painelLista".
+    public TelaLista getPainelLista(){ //Retorna a instância de TelaLista iniciada em
+        // MyFrame, e atribuída a "painelLista".
 
         return painelLista;
     }

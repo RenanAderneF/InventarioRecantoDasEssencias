@@ -2,6 +2,8 @@ package db;
 import main.Main;
 import main.Produto;
 import inferface_grafica.TelaLista;
+
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,15 +17,14 @@ import java.sql.SQLException;
 
 public class OperacoesDB {
 
-    // O atributo a seguir recebe a instância de painelLista na instância de inferface_grafica.MyFrame em main.Main.
+    // O atributo a seguir recebe a instância de painelLista na instância de MyFrame em Main.
 
     private static final TelaLista painelLista = Main.getMyFrame().getPainelLista();
+    private static final DefaultTableModel modelo = painelLista.getMdlPersonalizado();
+
 
     /* Tendo o acesso ao painelLista, o atributo a seguir acessa o modelo da tabela desse painel para a inserção dos
     dados via queries sql nesta classe. */
-
-    private static final DefaultTableModel modeloTbl = painelLista.getModeloTbl();
-
 
     //MÉTODOS ESTÁTICOS:
 
@@ -66,7 +67,8 @@ public class OperacoesDB {
 
                 //Modelo que realiza as operações na tabela:
 
-                modeloTbl.addRow(new Object[]{rs.getInt("id"), rs.getString("nome"),rs.getLong("codigoBarras"),
+                modelo.addRow(new Object[]{rs.getInt("id"), rs.getString("nome"),
+                        rs.getLong("codigoBarras"),
                         rs.getString("tamanho"),rs.getFloat("preco"),
                         rs.getInt("quantidade")});
 

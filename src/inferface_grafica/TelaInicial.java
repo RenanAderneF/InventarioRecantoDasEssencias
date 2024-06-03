@@ -3,20 +3,19 @@ package inferface_grafica;
 import javax.swing.*;
 import java.awt.*;
 
-/* inferface_grafica.TelaInicial: Classe responsável por configurar e retornar o painel inicial, que oferece instruções de como utilizar a
-aplicação. Ele é instanciado em inferface_grafica.MyFrame, tendo seu método get chamado para acessar o JPanel em si. */
+/** TelaInicial: Classe responsável por configurar e retornar o painel inicial, que oferece instruções de como utilizar
+ * a aplicação. Ele é instanciado em MyFrame. */
 
-public class TelaInicial {
+public class TelaInicial extends JPanel{
 
     GridBagConstraints c = new GridBagConstraints();
-    JPanel painelInicial;
 
     TelaInicial() {
 
-        painelInicial = new JPanel(new GridBagLayout());
-        painelInicial.setPreferredSize(new Dimension(500,500));
-        painelInicial.setBackground(new Color(255, 255, 255));
-        painelInicial.setVisible(true);
+        new JPanel(new GridBagLayout());
+        setPreferredSize(new Dimension(500,500));
+        setBackground(new Color(255, 255, 255));
+        setVisible(true);
 
         //Adicionando título, seguido de ícone com logo da empresa.
 
@@ -31,7 +30,7 @@ public class TelaInicial {
         titleApp.setIconTextGap(50);
         titleApp.setHorizontalTextPosition(SwingConstants.CENTER);
         titleApp.setVerticalTextPosition(SwingConstants.BOTTOM);
-        painelInicial.add(titleApp, c);
+        add(titleApp, c);
 
 
         //Adicionando área de texto com explicação de como usar a aplicação:
@@ -60,13 +59,9 @@ public class TelaInicial {
         descricaoApp.setEditable(false);
         descricaoApp.setFocusable(false);
 
-        painelInicial.add(descricaoApp, c);
+        add(descricaoApp, c);
 
 
     }
 
-    public JPanel getPainelInicial(){
-
-        return painelInicial;
-    }
 }
