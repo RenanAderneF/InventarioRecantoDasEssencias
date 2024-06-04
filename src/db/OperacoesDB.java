@@ -44,6 +44,8 @@ public class OperacoesDB {
             }
 
             System.out.println("Registro de produto realizado com sucesso.");
+            conn.close();
+            System.out.println("Conexão finalizada.");
 
         }
 
@@ -64,19 +66,19 @@ public class OperacoesDB {
 
                 //Modelo que realiza as operações na tabela:
 
-                if (modelo.getRowCount() == 0) { //Se tabela vazia, puxar os dados.
+                modelo.addRow(new Object[]{rs.getInt("id"), rs.getString("nome"),
+                    rs.getLong("codigoBarras"),
+                    rs.getString("tamanho"),rs.getFloat("preco"),
+                    rs.getInt("quantidade")});
 
-                    modelo.addRow(new Object[]{rs.getInt("id"), rs.getString("nome"),
-                        rs.getLong("codigoBarras"),
-                        rs.getString("tamanho"),rs.getFloat("preco"),
-                        rs.getInt("quantidade")});
 
-                }
 
 
             }
 
             System.out.println("Listagem de produtos realizada com sucesso.");
+            conn.close();
+            System.out.println("Conexão finalizada.");
 
         }
 

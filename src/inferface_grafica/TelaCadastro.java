@@ -130,14 +130,15 @@ public class TelaCadastro extends JPanel implements ActionListener {
 
         String nome = inputNome.getText();
         String tamanho = inputTamanho.getText();
+
         float preco = parseFloat(inputPreco.getText());
+
         int quantidade = parseInt(inputQuantidade.getText());
         String codigoBarras = inputcodigoBarras.getText();
 
         Produto produto = new Produto(nome, tamanho, preco, quantidade, codigoBarras);
 
         OperacoesDB.registraProduto(produto); //Realiza o INSERT dos campos.
-
     }
 
     @Override

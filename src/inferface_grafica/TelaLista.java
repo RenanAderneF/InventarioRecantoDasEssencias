@@ -16,8 +16,6 @@ import main.Main;
 
 public class TelaLista extends JPanel  {
 
-    private int id;
-
     JTable tabelaProduto;
     DefaultTableModel modelo;
     JScrollPane scrollTabela;
@@ -77,6 +75,22 @@ public class TelaLista extends JPanel  {
         //Adiciona Ouvinte de Modelo de Tabela:
 
         ouvinteSelecLinha();
+
+        //Esconde coluna "id":
+
+        redimensionaColuna(0,0,0, 0);
+
+        //Redimensiona nome:
+
+        redimensionaColuna(1,0,0,50);
+
+        //Redimensiona código de barras:
+
+        redimensionaColuna(2,0,0,70);
+
+        //Redimensiona preço:
+
+
     }
 
     //MÉTODOS DE INSTÂNCIA:
@@ -97,9 +111,7 @@ public class TelaLista extends JPanel  {
     }
 
     public DefaultTableModel getMdlPersonalizado() {
-
         return modelo;
-
     }
 
     public void limpaLista() {
@@ -155,6 +167,25 @@ public class TelaLista extends JPanel  {
 
             OperacoesDB.removeProduto(idProduto); //Apaga registro no banco.
         }
+    }
+
+    public void redimensionaColuna(int index, int minLargura, int maxLargura, int valor){
+
+        if (index == 0) {
+
+            tabelaProduto.getColumnModel().getColumn(0).setMinWidth(0);
+            tabelaProduto.getColumnModel().getColumn(0).setMaxWidth(0);
+
+        }
+
+        else {
+
+            tabelaProduto.getColumnModel().getColumn(index).setPreferredWidth(tabelaProduto.getColumnModel().
+                    getColumn(3).getPreferredWidth()+ valor);
+
+        }
+
+
     }
 
 }
