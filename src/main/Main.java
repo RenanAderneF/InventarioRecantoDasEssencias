@@ -1,11 +1,10 @@
 package main;
-
 import db.ConectaDB;
 import inferface_grafica.MyFrame;
 
 public class Main {
 
-    private static inferface_grafica.MyFrame MyFrame;
+    private static MyFrame myFrame;
 
     public static void main(String[] args){
 
@@ -15,11 +14,12 @@ public class Main {
 
         //Inicia a interface gráfica
 
-        MyFrame = new MyFrame();
+        myFrame = new MyFrame();
+
     }
 
-    public static MyFrame getMyFrame(){ //Retorna inferface_grafica.MyFrame inicializado em main.Main.
+    public static MyFrame getMyFrame(){ //Retorna MyFrame inicializado em Main.
 
-        return MyFrame;
+        return myFrame;
     }
 }

@@ -1,11 +1,14 @@
 package inferface_grafica;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
+
+import main.Main;
 import main.Produto;
 import db.OperacoesDB;
 
@@ -16,13 +19,35 @@ import db.OperacoesDB;
  * parâmetros durante a inicialização do objeto "main.Produto" correspondente.
  */
 
-public class TelaCadastro extends JPanel implements ActionListener {
+public class TelaEditaRegistro extends JPanel implements ActionListener {
 
     JTextField inputNome, inputTamanho, inputQuantidade, inputPreco, inputcodigoBarras;
-    JButton btnEnviar;
+    JButton btnAtualizar;
     GridBagConstraints c = new GridBagConstraints();
 
-    TelaCadastro() {
+    int linhaSelecionada;
+
+    public JTextField getInputNome() {
+        return inputNome;
+    }
+
+    public JTextField getInputTamanho() {
+        return inputTamanho;
+    }
+
+    public JTextField getInputQuantidade() {
+        return inputQuantidade;
+    }
+
+    public JTextField getInputPreco() {
+        return inputPreco;
+    }
+
+    public JTextField getInputcodigoBarras() {
+        return inputcodigoBarras;
+    }
+
+    TelaEditaRegistro() {
 
         setLayout(new GridBagLayout());
         setPreferredSize(new Dimension(300, 500));
@@ -47,8 +72,8 @@ public class TelaCadastro extends JPanel implements ActionListener {
         inputQuantidade = new JTextField();
         inputcodigoBarras = new JTextField();
 
-        btnEnviar = new JButton("Enviar");
-        btnEnviar.addActionListener(this);
+        btnAtualizar = new JButton("Atualizar");
+        btnAtualizar.addActionListener(this);
 
         //POSICIONANDO E DIMENSIONANDO ELEMENTOS NO PAINEL DE ENTRADA:
 
@@ -122,30 +147,44 @@ public class TelaCadastro extends JPanel implements ActionListener {
         c.gridwidth = 3;
         c.gridy = 5;
         c.gridx = 0;
-        this.add(btnEnviar, c);
+        this.add(btnAtualizar, c);
 
     }
 
-    public void cadastraProduto(){
+    public void editaCampo() {
+
+        MyFrame myFrame = Main.getMyFrame();
+        TelaLista painelLista = myFrame.getPainelLista();
 
         String nome = inputNome.getText();
+        String codigoBarras = inputcodigoBarras.getText();
         String tamanho = inputTamanho.getText();
         float preco = parseFloat(inputPreco.getText());
         int quantidade = parseInt(inputQuantidade.getText());
-        String codigoBarras = inputcodigoBarras.getText();
 
-        Produto produto = new Produto(nome, tamanho, preco, quantidade, codigoBarras);
 
-        OperacoesDB.registraProduto(produto); //Realiza o INSERT dos campos.
+        linhaSelecionada = painelLista.getLinhaSelecionada();
+
+        if(linhaSelecionada != -1){
+
+            DefaultTableModel modelo = painelLista.getMdlPersonalizado();
+
+            int idProduto = (int) modelo.getValueAt(linhaSelecionada, 0);
+
+            OperacoesDB.editaProduto(idProduto, nome, codigoBarras, tamanho, preco, quantidade); //Edita registro no banco.
+        }
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() == btnEnviar) {
+        if(e.getSource() == btnAtualizar) {
 
-            cadastraProduto();
+            this.editaCampo(); //Captura os valores nos campos e o id da coluna selecionada, para ser usada na query.
+
+            MyFrame myFrame = Main.getMyFrame();
+            myFrame.exibeTelaInicio();
 
         }
 

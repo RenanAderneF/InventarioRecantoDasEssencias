@@ -2,6 +2,7 @@ package inferface_grafica;
 import javax.swing.*;
 import java.awt.event.*;
 import db.OperacoesDB;
+import main.Main;
 
 /**
  * Classe responsável por inicializar o frame da interface gráfica, contendo a inicialização da barra de menu, painel de
@@ -25,6 +26,8 @@ public class MyFrame extends JFrame implements ActionListener {
     TelaInicial painelInicial;
     TelaCadastro painelCadastro;
     TelaLista painelLista;
+    TelaEditaRegistro painelEditaRegistro;
+
 
     public MyFrame(){
 
@@ -61,7 +64,7 @@ public class MyFrame extends JFrame implements ActionListener {
         painelInicial = new TelaInicial(); //Inicia construtor
         contentPane.add(painelInicial);
 
-        // painelCadastro: Contém o formulário de cadastro de item.
+        //painelCadastro: Contém o formulário de cadastro de item.
 
         painelCadastro = new TelaCadastro();
         contentPane.add(painelCadastro);
@@ -70,6 +73,10 @@ public class MyFrame extends JFrame implements ActionListener {
 
         painelLista = new TelaLista();
         contentPane.add(painelLista);
+
+
+        painelEditaRegistro = new TelaEditaRegistro();
+        contentPane.add(painelEditaRegistro);
 
         //JFrame:
 
@@ -87,6 +94,10 @@ public class MyFrame extends JFrame implements ActionListener {
 
     public void exibeTelaInicio(){
 
+        MyFrame myFrame = Main.getMyFrame();
+        painelEditaRegistro = myFrame.getPainelEditaRegistro();
+        painelEditaRegistro.setVisible(false);
+
         painelInicial.setVisible(true);
         painelCadastro.setVisible(false);
         painelLista.setVisible(false);
@@ -95,17 +106,27 @@ public class MyFrame extends JFrame implements ActionListener {
 
     public void exibeTelaCadastro() {
 
+        MyFrame myFrame = Main.getMyFrame();
+        painelEditaRegistro = myFrame.getPainelEditaRegistro();
+        painelEditaRegistro.setVisible(false);
+
         painelCadastro.setVisible(true);
         painelInicial.setVisible(false);
         painelLista.setVisible(false);
+
         painelLista.limpaLista();
     }
 
     public void exibeTelaLista() {
 
+        MyFrame myFrame = Main.getMyFrame();
+        painelEditaRegistro = myFrame.getPainelEditaRegistro();
+        painelEditaRegistro.setVisible(false);
+
         painelLista.setVisible(true);
         painelInicial.setVisible(false);
         painelCadastro.setVisible(false);
+
     }
 
     public TelaLista getPainelLista(){ //Retorna a instância de TelaLista iniciada em
@@ -114,6 +135,10 @@ public class MyFrame extends JFrame implements ActionListener {
         return painelLista;
     }
 
+    public TelaEditaRegistro getPainelEditaRegistro(){
+
+        return painelEditaRegistro;
+    }
 
     @Override //Sobrescreve o método ActionPerformed da interface ActionListener, definindo eventos dos menus.
 

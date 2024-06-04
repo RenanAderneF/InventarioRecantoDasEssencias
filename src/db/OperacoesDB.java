@@ -2,8 +2,6 @@ package db;
 import main.Main;
 import main.Produto;
 import inferface_grafica.TelaLista;
-
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +19,6 @@ public class OperacoesDB {
 
     private static final TelaLista painelLista = Main.getMyFrame().getPainelLista();
     private static final DefaultTableModel modelo = painelLista.getMdlPersonalizado();
-
 
     /* Tendo o acesso ao painelLista, o atributo a seguir acessa o modelo da tabela desse painel para a inserção dos
     dados via queries sql nesta classe. */
@@ -67,10 +64,15 @@ public class OperacoesDB {
 
                 //Modelo que realiza as operações na tabela:
 
-                modelo.addRow(new Object[]{rs.getInt("id"), rs.getString("nome"),
+                if (modelo.getRowCount() == 0) { //Se tabela vazia, puxar os dados.
+
+                    modelo.addRow(new Object[]{rs.getInt("id"), rs.getString("nome"),
                         rs.getLong("codigoBarras"),
                         rs.getString("tamanho"),rs.getFloat("preco"),
                         rs.getInt("quantidade")});
+
+                }
+
 
             }
 
@@ -84,30 +86,48 @@ public class OperacoesDB {
 
     }
 
-    public static void editaProduto() {
+    public static void editaProduto(int id, String nome, String codigoBarras, String tamanho, float preco, int quantidade) {
 
-         /* Haverá uma variável que receberá um alvo (ou source) do ouvinte de evento de JTable, sendo este alvo, uma
-        linha da tabela (ou registro). Com essa variável, será necessário utilizar um método para verificar o campo de
-        ID dessa linha. Esse valor será armazenado em outra variável. Com esse valor, ele será
-        passado em uma consulta SQL (ainda não sei como escrevê-la) para encontrar um registro no banco em que a coluna
-        de codigo de barras seja equivalente ao valor da variável que representa o código de barras no JTable. Após
-        encontrada, ela será removida do banco, assim como a linha que é o alvo do ouvinte de evento.
-        */
+       String sql = "UPDATE produto SET nome = ?, codigoBarras = ?, tamanho = ?, preco = ?, quantidade = ? " +
+               "WHERE id = ?";
 
+       try (Connection conn = ConectaDB.getConnection();
+
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, nome);
+            pstmt.setString(2, codigoBarras);
+            pstmt.setString(3, tamanho);
+            pstmt.setFloat(4, preco);
+            pstmt.setInt(5, quantidade);
+            pstmt.setInt(6, id);
+            pstmt.executeUpdate();
+            System.out.println(STR."Produto com ID \{id} atualizado no banco de dados.");
+       }
+
+       catch (SQLException e) {
+           System.err.println(STR."Erro ao deletar o produto do banco de dados: \{e.getMessage()}");
+       }
 
     }
 
-    public static void removeProduto(){
+    public static void removeProduto(int id) {
 
-        /* Haverá uma variável que receberá um alvo (ou source) do ouvinte de evento de JTable, sendo este alvo, uma
-        linha da tabela (ou registro). Com essa variável, será necessário utilizar um método para verificar o campo de
-        ID dessa linha. Esse valor será armazenado em outra variável. Com esse valor, ele será
-        passado em uma consulta SQL (ainda não sei como escrevê-la) para encontrar um registro no banco em que a coluna
-        de ID seja equivalente ao valor da variável que representa o ID no JTable. Após
-        encontrada, ela será removida do banco, assim como a linha que é o alvo do ouvinte de evento.
-        */
+        String sql = "DELETE FROM produto WHERE id = ?";
+        try (Connection conn = ConectaDB.getConnection();
+
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+            System.out.println(STR."Produto com ID \{id} deletado do banco de dados.");
+        }
+
+        catch (SQLException e) {
+            System.err.println(STR."Erro ao deletar o produto do banco de dados: \{e.getMessage()}");
+        }
+
     }
 }
+
 
 
 

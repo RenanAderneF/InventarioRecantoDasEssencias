@@ -43,11 +43,9 @@ public class TelaInicial extends JPanel{
                 será armazenado no banco de dados.
                 
                 - Listar Produto: Busca os produtos no banco de dados, exibindo todos os registros em
-               uma janela.
-                
-                - Ajuda: Abre uma janela com informações sobre o desenvolvimento da aplicação, com um
-                link para o projeto no Github, para explicações mais detalhadas sobre o processo de
-                construção da aplicação.
+               uma janela. Com o clique esquerdo do mouse, é possível escolher um item da tabela
+               (caso exista um) e, em seguida, pressionar o botão "Atualizar registro selecionado"
+               para editar o produto selecionado para um painel semelhante ao de cadastrar produto.
                 
                 """;
 

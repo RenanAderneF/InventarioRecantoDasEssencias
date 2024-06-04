@@ -12,12 +12,12 @@ public class Model extends DefaultTableModel{
 
         //Configura as colunas na tabela:
         setColumnIdentifiers(colunas);
+
     }
 
     @Override
     public boolean isCellEditable(int row, int column){
 
-        int indexID = findColumn("ID");
-        return column != indexID;
+        return false;
     }
 }
